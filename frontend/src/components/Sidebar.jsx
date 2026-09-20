@@ -81,7 +81,7 @@ export function Sidebar() {
             SecOps Auditor
           </div>
           <div style={{ fontSize: "0.7rem", color: "var(--accent-cyan)", fontWeight: 600 }}>
-            SIH 2026 PROTOTYPE
+            PROTOTYPE
           </div>
         </div>
       </div>
