@@ -1,16 +1,29 @@
 import { DatabaseSync } from "node:sqlite";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import {
+  existsSync,
+  copyFileSync
+} from "node:fs";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-const dbPath = path.join(__dirname, "network_auditor.db");
 
-const db = new DatabaseSync(dbPath);
+// Vercel's writable temporary directory
+const runtimeDbPath = "/tmp/network_auditor.db";
+const bundledDbPath = path.join(__dirname, "network_auditor.db");
 
-// Enable WAL mode & foreign keys for performance and integrity
+// Copy the bundled demo database into /tmp on first startup
+if (!existsSync(runtimeDbPath)) {
+  copyFileSync(bundledDbPath, runtimeDbPath);
+}
+
+const db = new DatabaseSync(runtimeDbPath);
+
+// Enable foreign keys.
+// WAL is intentionally avoided on the deployed copy because
+// Vercel's serverless filesystem is ephemeral.
 try {
-  db.exec("PRAGMA journal_mode = WAL;");
   db.exec("PRAGMA foreign_keys = ON;");
 } catch (e) {
   console.warn("Pragma warning:", e.message);
