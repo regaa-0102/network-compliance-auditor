@@ -80,7 +80,7 @@ export function DemoControlBar({ onAuditClick, onStateChange }) {
             alignItems: "center",
             gap: "0.35rem"
           }}>
-            <Sparkles size={13} /> SIH 2026 LIVE DEMO
+            <Sparkles size={13} /> LIVE DEMO
           </span>
           <span style={{ fontSize: "0.85rem", color: "var(--text-secondary)" }}>
             Interactive Simulation Controls for Evaluators:
