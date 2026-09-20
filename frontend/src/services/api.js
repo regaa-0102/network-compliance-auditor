@@ -1,5 +1,4 @@
-const BASE_URL = "http://localhost:5000/api";
-
+const BASE_URL = "https://network-compliance-auditor-o8gr.vercel.app/api";
 async function request(endpoint, options = {}) {
   const token = localStorage.getItem("token");
   const headers = {
